@@ -43,7 +43,7 @@ ID блюд для фото (соответствуют `MENU` в `script.js`):
 ## 2. Проверьте контакты
 
 Уже указано в файлах:
-- WhatsApp / телефон: **+996 880 886 677** (`script.js` → `CONFIG.whatsappPhone`, `index.html` → подвал)
+- WhatsApp / телефон: **+996 880 886 600** (`script.js` → `CONFIG.whatsappPhone`, `index.html` → подвал)
 - Instagram: **@tomyam.rolls** (подвал и шапка)
 
 Если номер или инстаграм изменятся — правьте в `script.js` (поле `whatsappPhone`,
