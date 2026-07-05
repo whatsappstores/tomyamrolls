@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomYam Rolls | Роллы и Том Ям с доставкой</title>
+<meta name="description" content="TomYam Rolls — роллы, суши и настоящий тайский Том Ям с доставкой. Оформите заказ прямо в WhatsApp за 30 секунд.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo" aria-label="TomYam Rolls — на главную">
+      <img src="assets/logo.png" alt="TomYam Rolls" class="logo-img">
+      <span class="logo-text">TomYam<span class="logo-accent">Rolls</span></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="#menu">Меню</a>
+      <a href="#about">О нас</a>
+      <a href="#delivery">Доставка</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-whatsapp btn-sm" id="headerWhatsapp" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l4.9-1.4c1.5.9 3.3 1.4 5.1 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.1.9.9-3-.2-.3C3.9 15 3.3 13.5 3.3 12 3.3 7.2 7.2 3.3 12 3.3S20.7 7.2 20.7 12 16.8 20.3 12 20.3z"/></svg>
+        <span>Заказать</span>
+      </a>
+      <button class="cart-toggle" id="cartToggle" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" class="icon-cart" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M6 6L4.5 2H2"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Меню сайта">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span>Роллы · суши · тайский Том Ям</p>
+        <h1>Доставляем настоящий вкус <span class="hero-accent">Азии</span> к вам домой</h1>
+        <p class="hero-sub">Варим настоящий Том Ям на кокосовом молоке и лемонграссе, скручиваем роллы вручную и привозим горячим. Заказ — прямо в WhatsApp, без форм и звонков.</p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">Смотреть меню</a>
+          <a href="#" id="heroWhatsapp" class="btn btn-whatsapp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l4.9-1.4c1.5.9 3.3 1.4 5.1 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.1.9.9-3-.2-.3C3.9 15 3.3 13.5 3.3 12 3.3 7.2 7.2 3.3 12 3.3S20.7 7.2 20.7 12 16.8 20.3 12 20.3z"/></svg>
+            Написать и заказать
+          </a>
+        </div>
+        <ul class="hero-stats">
+          <li><b>30–45 мин</b><span>среднее время доставки</span></li>
+          <li><b>@tomyam.rolls</b><span>подписывайтесь в Instagram</span></li>
+        </ul>
+      </div>
+
+      <div class="hero-photo-frame">
+        <svg viewBox="0 0 400 400" class="enso-ring" aria-hidden="true">
+          <path d="M 200 30 A 170 170 0 1 1 55 120" fill="none" stroke="#101010" stroke-width="14" stroke-linecap="round"/>
+        </svg>
+        <div class="hero-photo photo-slot" data-photo="images/hero.jpg">
+          <span class="photo-fallback">Ваше фото здесь<br><code>images/hero.jpg</code></span>
+        </div>
+        <span class="hero-red-dot"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu-section" id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span class="dot"></span>Меню</p>
+        <h2>Выбирайте, что везти</h2>
+      </div>
+
+      <div class="cat-tabs" id="catTabs" role="tablist" aria-label="Категории меню"></div>
+
+      <div class="menu-grid" id="menuGrid"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="wrap about-inner">
+      <div class="about-photo photo-slot" data-photo="images/about.jpg">
+        <span class="photo-fallback">images/about.jpg</span>
+      </div>
+      <div class="about-copy">
+        <p class="eyebrow"><span class="dot"></span>О нас</p>
+        <h2>Только хиты — ничего лишнего</h2>
+        <p>Tom Yam Rolls — это кисло-острый Том Ям и свежие роллы, суши с доставкой по Бишкеку. Мы убрали всё лишнее. В меню только хиты:</p>
+        <ul class="dot-list">
+          <li>Том Ям на кокосовом молоке по тайскому рецепту</li>
+          <li>Роллы и суши из свежего лосося</li>
+        </ul>
+        <p>Готовим на своей кухне без зала. Поэтому вся энергия уходит в качество и скорость.</p>
+        <p class="about-tagline">Tom Yam Rolls — когда хочется Азии ❤️</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY -->
+  <section class="delivery-section" id="delivery">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span class="dot"></span>Доставка</p>
+        <h2>Как это работает</h2>
+      </div>
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <span class="delivery-glyph">01</span>
+          <h3>Собираете заказ</h3>
+          <p>Добавляйте блюда в корзину справа — она сама считает сумму и минимальный чек.</p>
+        </div>
+        <div class="delivery-card">
+          <span class="delivery-glyph">02</span>
+          <h3>Отправляете в WhatsApp</h3>
+          <p>Нажимаете «Оформить заказ» — список блюд и адрес уже собраны в сообщение.</p>
+        </div>
+        <div class="delivery-card">
+          <span class="delivery-glyph">03</span>
+          <h3>Готовим и везём</h3>
+          <p>Подтверждаем заказ в чате и ставим на кухню. В среднем — 30–45 минут до курьера.</p>
+        </div>
+      </div>
+      <div class="delivery-note">
+        <p><b>Зона доставки:</b> Бишкек. За пределами города уточняем стоимость в чате WhatsApp.</p>
+        <p><b>Часы приёма заказов:</b> ежедневно, 10:00 – 23:00.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Корзина заказа">
+  <div class="cart-head">
+    <h3>Ваш заказ</h3>
+    <div class="cart-head-actions">
+      <button class="cart-clear" id="cartClear" type="button">Очистить</button>
+      <button class="cart-close" id="cartClose" aria-label="Закрыть корзину">&times;</button>
+    </div>
+  </div>
+
+  <div class="cart-body" id="cartBody">
+    <p class="cart-empty" id="cartEmpty">Корзина пуста. Начните с Том Ям или ролла 🌶️</p>
+    <ul class="cart-items" id="cartItems"></ul>
+  </div>
+
+  <div class="cart-foot" id="cartFoot">
+    <label class="cart-field">
+      Адрес доставки
+      <input type="text" id="orderAddress" placeholder="Улица, дом, квартира, домофон">
+    </label>
+    <label class="cart-field">
+      Комментарий к заказу
+      <input type="text" id="orderComment" placeholder="Меньше остроты, позвонить за 10 минут…">
+    </label>
+    <div class="cart-total">
+      <span>Итого</span>
+      <span id="cartTotal">0 сом</span>
+    </div>
+    <button class="btn btn-whatsapp btn-full" id="checkoutWhatsapp">
+      <svg viewBox="0 0 24 24" class="icon-wa" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l4.9-1.4c1.5.9 3.3 1.4 5.1 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.1.9.9-3-.2-.3C3.9 15 3.3 13.5 3.3 12 3.3 7.2 7.2 3.3 12 3.3S20.7 7.2 20.7 12 16.8 20.3 12 20.3z"/></svg>
+      Оформить заказ в WhatsApp
+    </button>
+    <p class="cart-hint">Откроется чат WhatsApp с готовым списком блюд — просто нажмите «Отправить».</p>
+  </div>
+</aside>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="#" id="floatWhatsapp" class="float-whatsapp" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l4.9-1.4c1.5.9 3.3 1.4 5.1 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.1.9.9-3-.2-.3C3.9 15 3.3 13.5 3.3 12 3.3 7.2 7.2 3.3 12 3.3S20.7 7.2 20.7 12 16.8 20.3 12 20.3z"/></svg>
+</a>
+
+<footer class="site-footer" id="contacts">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo.png" alt="TomYam Rolls" class="footer-logo">
+      <p>Роллы, суши и тайский Том Ям с доставкой. Заказ принимаем прямо в WhatsApp.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <p><a href="tel:+996880886677">+996 880 886 677</a></p>
+      <p><a href="#" id="footerWhatsapp" target="_blank" rel="noopener">Написать в WhatsApp</a></p>
+      <p><a href="https://instagram.com/tomyam.rolls" target="_blank" rel="noopener">@tomyam.rolls</a></p>
+    </div>
+    <div class="footer-col">
+      <h4>Часы работы</h4>
+      <p>Ежедневно 10:00 – 23:00</p>
+      <p>Самовывоз со скидкой 15%</p>
+    </div>
+    <div class="footer-col">
+      <h4>Навигация</h4>
+      <p><a href="#menu">Меню</a></p>
+      <p><a href="#about">О нас</a></p>
+      <p><a href="#delivery">Доставка</a></p>
+    </div>
+  </div>
+  <div class="wrap footer-legal">
+    <p>© 2026 TomYam Rolls. Замените фото, меню и контакты своими перед публикацией.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
