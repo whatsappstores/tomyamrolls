@@ -24,7 +24,8 @@ const MENU = [
   {
     cat: "starters", catLabel: "Закуски", glyph: "🍤",
     items: [
-      { id: "ap1", name: "Хрустящие креветки", desc: "Креветки в кляре карри, панировочные сухари, соус унаги и соус спайси", weight: "185 г", price: 185 }
+      { id: "ap1", name: "Хрустящие креветки", desc: "Креветки в кляре карри, панировочные сухари, соус унаги и соус спайси", weight: "185 г", price: 185 },
+      { id: "ap2", name: "Картофель фри", desc: "Подаётся с сырным соусом", weight: "150 г + соус 30 г", price: 200 }
     ]
   },
   {
@@ -87,6 +88,24 @@ const MENU = [
     cat: "salads", catLabel: "Салаты", glyph: "🥗",
     items: [
       { id: "sl1", name: "Чука салат", desc: "Маринованные водоросли чука, ореховый соус, лимон", weight: "200 г", price: 230 }
+    ]
+  },
+  {
+    cat: "drinks", catLabel: "Напитки", glyph: "🥤",
+    items: [
+      { id: "dr1", name: "Coca-Cola", desc: "", weight: "1 л", price: 140 },
+      { id: "dr2", name: "Fuse Tea ромашка", desc: "", weight: "1 л", price: 140 },
+      { id: "dr3", name: "Fuse Tea персик", desc: "", weight: "1 л", price: 140 }
+    ]
+  },
+  {
+    cat: "sauces", catLabel: "Соусы и добавки", glyph: "🧂",
+    items: [
+      { id: "sc1", name: "Соевый соус п/ф", desc: "", weight: "30 г", price: 40 },
+      { id: "sc2", name: "Ореховый соус", desc: "", weight: "30 г", price: 40 },
+      { id: "sc3", name: "Имбирь маринованный", desc: "", weight: "30 г", price: 40 },
+      { id: "sc4", name: "Васаби", desc: "", weight: "30 г", price: 30 },
+      { id: "sc5", name: "Спайс соус", desc: "", weight: "30 г", price: 45 }
     ]
   },
   {
