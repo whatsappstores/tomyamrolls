@@ -451,7 +451,24 @@ p{line-height:1.65;margin:0 0 1em;}
   padding:1.2rem 0;
   font-size:.75rem;
   color:rgba(255,255,255,.5);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.6rem;
 }
+.footer-legal p{margin:0;}
+.made-by-badge{
+  font-size:.72rem;
+  color:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;
+  padding:.35em 1em;
+  transition:color .15s ease, border-color .15s ease;
+}
+.made-by-badge span{color:rgba(255,255,255,.7);font-weight:600;}
+.made-by-badge:hover{
+  color:rgba(255,255,255,.75);
+  border-color:rgba(255,255,255,.3);
+}
+.made-by-badge:hover span{color:#fff;}
 
 /* ==========================================================
    Responsive
