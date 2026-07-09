@@ -29,9 +29,9 @@ ID блюд для фото (соответствуют `MENU` в `script.js`):
 ```
 Закуски:             ap1 ap2
 Роллы:                rl1 rl2 rl3 rl4 rl5
-Темпура-роллы:        tp1 tp2 tp3
+Темпура-роллы:        tp1 tp2 tp3 tp4
 Запечённые роллы:     bk1 bk2
-Маки:                 mk1 mk2 mk3 mk4
+Маки:                 mk1 mk2 mk3 mk4 mk5
 Суши и гункан:        su1 su2 su3 su4
 Поке:                 pk1 pk2
 Супы:                 sp1
