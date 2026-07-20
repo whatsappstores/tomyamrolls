@@ -10,8 +10,8 @@ const CONFIG = {
 
   restaurantName: "TomYam Rolls",
   currency: "сом",
-  freeDeliveryFrom: 500,
-  deliveryFee: 100
+  freeDeliveryFrom: 1500,
+  freeDeliveryRadiusKm: 3
 };
 
 /* ==========================================================
@@ -344,9 +344,12 @@ function buildCart() {
   }
 
   const total = cartTotal();
-  const deliveryNote = total > 0 && total < CONFIG.freeDeliveryFrom
-    ? ` (+${CONFIG.deliveryFee} ${CONFIG.currency} доставка)`
-    : "";
+  let deliveryNote = "";
+  if (total > 0 && total < CONFIG.freeDeliveryFrom) {
+    deliveryNote = ` (доставка платная — от ${moneyFmt(CONFIG.freeDeliveryFrom)} бесплатно в пределах ${CONFIG.freeDeliveryRadiusKm} км)`;
+  } else if (total >= CONFIG.freeDeliveryFrom) {
+    deliveryNote = ` (доставка бесплатно в пределах ${CONFIG.freeDeliveryRadiusKm} км)`;
+  }
   cartTotalEl.textContent = moneyFmt(total) + deliveryNote;
 }
 
@@ -379,9 +382,9 @@ function buildOrderMessage() {
   lines.push(`Итого: ${moneyFmt(total)}`);
 
   if (total > 0 && total < CONFIG.freeDeliveryFrom) {
-    lines.push(`Доставка: ${CONFIG.deliveryFee} ${CONFIG.currency} (бесплатно от ${moneyFmt(CONFIG.freeDeliveryFrom)})`);
+    lines.push(`Доставка: платная (бесплатно от ${moneyFmt(CONFIG.freeDeliveryFrom)} в пределах ${CONFIG.freeDeliveryRadiusKm} км от кухни, уточните стоимость)`);
   } else if (total > 0) {
-    lines.push("Доставка: бесплатно");
+    lines.push(`Доставка: бесплатно (заказ от ${moneyFmt(CONFIG.freeDeliveryFrom)}, в пределах ${CONFIG.freeDeliveryRadiusKm} км от кухни; за пределами зоны уточните стоимость)`);
   }
 
   if (address) lines.push(`Адрес: ${address}`);
