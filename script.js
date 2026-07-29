@@ -102,22 +102,22 @@ const MENU = [
     ]
   },
   {
-    cat: "sauces", catLabel: "Соусы и добавки", glyph: "🧂",
+    cat: "sets", catLabel: "Сеты", glyph: "🎉",
     items: [
-      { id: "sc1", name: "Соевый соус п/ф", desc: "", weight: "30 г", price: 40 },
-      { id: "sc2", name: "Ореховый соус", desc: "", weight: "30 г", price: 40 },
-      { id: "sc3", name: "Имбирь маринованный", desc: "", weight: "30 г", price: 40 },
-      { id: "sc4", name: "Васаби", desc: "", weight: "30 г", price: 30 },
-      { id: "sc5", name: "Спайс соус", desc: "", weight: "30 г", price: 45 }
+      { id: "se1", name: "Сет «Классика»", desc: "Калифорния, Филадельфия, маки с огурцом, маки с лососем + Coca-Cola и картофель фри", weight: "750 г", price: 1655 },
+      { id: "se2", name: "«Любимый сет»", desc: "Запечённый с лососем, темпура с курицей, маки с огурцом, маки с лососем + Coca-Cola и картофель фри", weight: "805 г", price: 1545 },
+      { id: "se3", name: "Сет «Баланс Вкуса»", desc: "Запечённый с курицей, ролл «Классический», суши с лососем, гункан с чукой, суши с угрём, гункан с лососем + Coca-Cola и картофель фри", weight: "760 г", price: 1775 },
+      { id: "se5", name: "Сет «Вкусняшка»", desc: "Запечённый с курицей, Филадельфия, ролл «Классический» + Coca-Cola и картофель фри", weight: "860 г", price: 1815 }
     ]
   },
   {
-    cat: "sets", catLabel: "Сеты", glyph: "🎉",
+    cat: "sauces", catLabel: "Соусы и добавки", glyph: "🧂",
     items: [
-      { id: "se1", name: "Сет «Классика»", desc: "Калифорния, Филадельфия, маки с огурцом, маки с лососем", weight: "750 г", price: 1555 },
-      { id: "se2", name: "«Любимый сет»", desc: "Запечённый с лососем, темпура с курицей, маки с огурцом, маки с лососем", weight: "805 г", price: 1445 },
-      { id: "se3", name: "Сет «Баланс Вкуса»", desc: "Запечённый с курицей, ролл «Классический», суши с лососем, гункан с чукой, суши с угрём, гункан с лососем", weight: "760 г", price: 1675 },
-      { id: "se5", name: "Сет «Вкусняшка»", desc: "Запечённый с курицей, Филадельфия, ролл «Классический»", weight: "860 г", price: 1715 }
+      { id: "sc1", name: "Соевый соус п/ф", desc: "", weight: "30 г", price: 40, compact: true },
+      { id: "sc2", name: "Ореховый соус", desc: "", weight: "30 г", price: 40, compact: true },
+      { id: "sc5", name: "Спайс соус", desc: "", weight: "30 г", price: 45, compact: true },
+      { id: "sc3", name: "Имбирь маринованный", desc: "Часто уже входит в состав роллов — доп. порция по желанию", weight: "30 г", price: 40, compact: true, optional: true },
+      { id: "sc4", name: "Васаби", desc: "Часто уже входит в состав роллов — доп. порция по желанию", weight: "30 г", price: 30, compact: true, optional: true }
     ]
   }
 ];
@@ -216,6 +216,35 @@ function buildGrid() {
   groups.forEach(group => {
     group.items.forEach(item => {
       const qty = cart[item.id] || 0;
+
+      if (item.compact) {
+        html += `
+        <article class="dish-card dish-card--compact" data-id="${item.id}">
+          <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${item.id}.jpg">
+            <span class="photo-fallback">images/${item.id}.jpg</span>
+            <span class="dish-photo-badge">${group.glyph}</span>
+          </div>
+          <div class="dish-body dish-body--compact">
+            ${item.optional ? `<span class="dish-compact-tag">По желанию</span>` : ""}
+            <div class="dish-top">
+              <p class="dish-name">${item.name}</p>
+              <span class="dish-price">${moneyFmt(item.price)}</span>
+            </div>
+            ${item.desc ? `<p class="dish-desc">${item.desc}</p>` : ""}
+            <span class="dish-weight">${item.weight}</span>
+            <div class="dish-bottom">
+              <div class="qty-stepper">
+                <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
+                <span class="qty-value">${qty}</span>
+                <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
+              </div>
+              <button class="add-btn ${qty > 0 ? "in-cart" : ""}">${qty > 0 ? "Добавлено" : "В корзину"}</button>
+            </div>
+          </div>
+        </article>`;
+        return;
+      }
+
       html += `
         <article class="dish-card" data-id="${item.id}">
           <div class="dish-photo photo-slot" data-photo="images/${item.id}.jpg">
@@ -246,9 +275,10 @@ function buildGrid() {
 
   menuGridEl.querySelectorAll(".dish-card").forEach(card => {
     const id = card.dataset.id;
-    card.querySelector(".qty-plus").addEventListener("click", () => addToCart(id));
-    card.querySelector(".add-btn").addEventListener("click", () => addToCart(id));
-    card.querySelector(".qty-minus").addEventListener("click", () => removeFromCart(id));
+    card.querySelector(".qty-plus").addEventListener("click", (e) => { e.stopPropagation(); addToCart(id); });
+    card.querySelector(".add-btn").addEventListener("click", (e) => { e.stopPropagation(); addToCart(id); });
+    card.querySelector(".qty-minus").addEventListener("click", (e) => { e.stopPropagation(); removeFromCart(id); });
+    card.addEventListener("click", () => openDishModal(id));
   });
 
   loadPhotoSlots(menuGridEl);
@@ -259,6 +289,11 @@ function buildGrid() {
    без пересборки всей сетки, чтобы страница не "мигала"
    и не дёргалась при добавлении товара в корзину.
    ========================================================== */
+function findGroupGlyph(id) {
+  const group = MENU.find(g => g.items.some(i => i.id === id));
+  return group ? group.glyph : "";
+}
+
 function updateMenuQuantities() {
   menuGridEl.querySelectorAll(".dish-card").forEach(card => {
     const id = card.dataset.id;
@@ -271,6 +306,7 @@ function updateMenuQuantities() {
       addBtnEl.classList.toggle("in-cart", qty > 0);
     }
   });
+  if (currentModalId) updateDishModalQty();
 }
 
 function updateCartUI() {
@@ -429,6 +465,63 @@ document.getElementById("cartToggle").addEventListener("click", openCart);
 document.getElementById("cartClose").addEventListener("click", closeCart);
 document.getElementById("cartClear").addEventListener("click", clearCart);
 cartOverlay.addEventListener("click", closeCart);
+
+/* ==========================================================
+   UI: модальное окно с полной информацией о блюде
+   ========================================================== */
+let currentModalId = null;
+
+const dishModal = document.getElementById("dishModal");
+const dishModalOverlay = document.getElementById("dishModalOverlay");
+const dishModalPhoto = document.getElementById("dishModalPhoto");
+
+function openDishModal(id) {
+  const item = findItem(id);
+  if (!item) return;
+  currentModalId = id;
+
+  document.getElementById("dishModalName").textContent = item.name;
+  document.getElementById("dishModalDesc").textContent = item.desc || "";
+  document.getElementById("dishModalWeight").textContent = item.weight || "";
+  document.getElementById("dishModalPrice").textContent = moneyFmt(item.price);
+  document.getElementById("dishModalBadge").textContent = findGroupGlyph(id);
+
+  dishModalPhoto.dataset.photo = `images/${id}.jpg`;
+  dishModalPhoto.classList.remove("has-photo");
+  dishModalPhoto.classList.remove("photo-checked");
+  dishModalPhoto.style.backgroundImage = "";
+  document.getElementById("dishModalPhotoFallback").textContent = `images/${id}.jpg`;
+  loadPhotoSlots(dishModal);
+
+  updateDishModalQty();
+
+  dishModal.classList.add("open");
+  dishModalOverlay.classList.add("open");
+}
+
+function closeDishModal() {
+  dishModal.classList.remove("open");
+  dishModalOverlay.classList.remove("open");
+  currentModalId = null;
+}
+
+function updateDishModalQty() {
+  if (!currentModalId) return;
+  const qty = cart[currentModalId] || 0;
+  document.getElementById("dishModalQty").textContent = qty;
+  const btn = document.getElementById("dishModalAddBtn");
+  btn.textContent = qty > 0 ? "Добавлено" : "В корзину";
+  btn.classList.toggle("in-cart", qty > 0);
+}
+
+document.getElementById("dishModalClose").addEventListener("click", closeDishModal);
+dishModalOverlay.addEventListener("click", closeDishModal);
+document.getElementById("dishModalPlus").addEventListener("click", () => addToCart(currentModalId));
+document.getElementById("dishModalMinus").addEventListener("click", () => removeFromCart(currentModalId));
+document.getElementById("dishModalAddBtn").addEventListener("click", () => addToCart(currentModalId));
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") { closeDishModal(); closeCart(); }
+});
 
 const navToggle = document.getElementById("navToggle");
 const mainNav = document.getElementById("mainNav");

@@ -181,10 +181,60 @@
   </div>
 </aside>
 
+<!-- DISH MODAL -->
+<div class="dish-modal-overlay" id="dishModalOverlay"></div>
+<div class="dish-modal" id="dishModal" role="dialog" aria-modal="true" aria-labelledby="dishModalName">
+  <button class="dish-modal-close" id="dishModalClose" aria-label="Закрыть">&times;</button>
+  <div class="dish-modal-photo photo-slot" id="dishModalPhoto">
+    <span class="photo-fallback" id="dishModalPhotoFallback"></span>
+    <span class="dish-photo-badge" id="dishModalBadge"></span>
+  </div>
+  <div class="dish-modal-body">
+    <h3 id="dishModalName"></h3>
+    <p class="dish-modal-desc" id="dishModalDesc"></p>
+    <span class="dish-modal-weight" id="dishModalWeight"></span>
+    <div class="dish-modal-bottom">
+      <span class="dish-modal-price" id="dishModalPrice"></span>
+      <div class="dish-modal-controls">
+        <div class="qty-stepper" id="dishModalStepper">
+          <button class="qty-minus" id="dishModalMinus" aria-label="Убрать одну штуку">−</button>
+          <span class="qty-value" id="dishModalQty">0</span>
+          <button class="qty-plus" id="dishModalPlus" aria-label="Добавить одну штуку">+</button>
+        </div>
+        <button class="add-btn" id="dishModalAddBtn">В корзину</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FLOATING WHATSAPP BUTTON -->
 <a href="#" id="floatWhatsapp" class="float-whatsapp" target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.1.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.3 0-.5s-.6-1.5-.9-2c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.2-1.3-.1-.2-.3-.3-.6-.4z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.5 5.2L2 22l4.9-1.4c1.5.9 3.3 1.4 5.1 1.4 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.7 0-3.3-.5-4.6-1.3l-.3-.2-3.1.9.9-3-.2-.3C3.9 15 3.3 13.5 3.3 12 3.3 7.2 7.2 3.3 12 3.3S20.7 7.2 20.7 12 16.8 20.3 12 20.3z"/></svg>
 </a>
+
+<!-- DISH DETAIL MODAL -->
+<div class="dish-modal-overlay" id="dishModalOverlay"></div>
+<div class="dish-modal" id="dishModal" role="dialog" aria-modal="true" aria-labelledby="dishModalName">
+  <button class="dish-modal-close" id="dishModalClose" aria-label="Закрыть">&times;</button>
+  <div class="dish-modal-photo photo-slot" id="dishModalPhoto">
+    <span class="photo-fallback" id="dishModalPhotoFallback"></span>
+    <span class="dish-photo-badge" id="dishModalBadge"></span>
+  </div>
+  <div class="dish-modal-body">
+    <p class="dish-modal-price" id="dishModalPrice"></p>
+    <h3 id="dishModalName"></h3>
+    <p class="dish-modal-weight" id="dishModalWeight"></p>
+    <p class="dish-modal-desc" id="dishModalDesc"></p>
+    <div class="dish-modal-actions">
+      <div class="qty-stepper" id="dishModalStepper">
+        <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
+        <span class="qty-value">0</span>
+        <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
+      </div>
+      <button class="add-btn" id="dishModalAddBtn">В корзину</button>
+    </div>
+  </div>
+</div>
 
 <footer class="site-footer" id="contacts">
   <div class="wrap footer-inner">

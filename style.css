@@ -273,6 +273,46 @@ p{line-height:1.65;margin:0 0 1em;}
 .add-btn:hover{background:var(--red);}
 .add-btn.in-cart{background:var(--whatsapp);}
 
+/* Компактные карточки для соусов и добавок — с фото, но меньше основных блюд */
+.dish-card--compact{
+  flex-direction:row;
+  align-items:stretch;
+  align-self:start;
+}
+.dish-photo--compact{
+  width:92px;flex:none;
+  aspect-ratio:1;
+  border-radius:0;
+}
+.dish-body--compact{
+  padding:.75rem .9rem;
+  gap:.25rem;
+  flex:1;
+  display:flex;flex-direction:column;
+  min-width:0;
+}
+.dish-card--compact .dish-photo-badge{
+  width:22px;height:22px;font-size:.65rem;bottom:6px;left:6px;
+}
+.dish-card--compact .dish-name{font-size:.86rem;margin:0;}
+.dish-card--compact .dish-desc{font-size:.7rem;}
+.dish-card--compact .dish-weight{font-size:.64rem;}
+.dish-card--compact .dish-price{font-size:.85rem;}
+.dish-card--compact .dish-bottom{margin-top:.3rem;flex-wrap:wrap;gap:.5rem;}
+.dish-card--compact .qty-stepper button{width:22px;height:22px;font-size:.85rem;}
+.dish-card--compact .add-btn{padding:.4em .8em;font-size:.72rem;}
+.dish-compact-tag{
+  align-self:flex-start;
+  font-family:var(--font-mono);
+  font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--gray);
+  background:var(--paper-soft);
+  border:1px solid var(--paper-line);
+  border-radius:999px;
+  padding:.15em .6em;
+  margin-bottom:.1rem;
+}
+
 /* ==========================================================
    About
    ========================================================== */
@@ -412,6 +452,66 @@ p{line-height:1.65;margin:0 0 1em;}
 .cart-hint{font-size:.72rem;color:var(--gray);text-align:center;margin:0;}
 
 /* ==========================================================
+   Dish modal
+   ========================================================== */
+.dish-card{cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;}
+.dish-card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(16,16,16,.16);}
+
+.dish-modal-overlay{
+  position:fixed;inset:0;background:rgba(16,16,16,.6);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+  z-index:80;
+}
+.dish-modal-overlay.open{opacity:1;pointer-events:auto;}
+
+.dish-modal{
+  position:fixed;top:50%;left:50%;
+  width:min(480px, calc(100% - 32px));
+  max-height:min(88vh, 720px);
+  background:var(--paper);
+  border-radius:var(--radius);
+  overflow-y:auto;
+  z-index:90;
+  opacity:0;pointer-events:none;
+  transform:translate(-50%,-50%) scale(.96);
+  transition:opacity .2s ease, transform .2s ease;
+  box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+.dish-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1);}
+
+.dish-modal-close{
+  position:absolute;top:14px;right:14px;z-index:2;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.92);border:none;
+  font-size:1.6rem;line-height:1;cursor:pointer;color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(16,16,16,.18);
+}
+.dish-modal-photo{
+  position:relative;
+  aspect-ratio:4/3;
+  background-color:var(--paper-line);
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.dish-modal-photo .dish-photo-badge{
+  position:absolute;bottom:12px;left:12px;
+}
+.dish-modal-body{padding:1.4rem 1.5rem 1.6rem;display:flex;flex-direction:column;gap:.6rem;}
+.dish-modal-body h3{font-size:1.3rem;margin:0;}
+.dish-modal-desc{font-size:.92rem;color:var(--gray);margin:0;line-height:1.6;}
+.dish-modal-weight{font-family:var(--font-mono);font-size:.78rem;color:var(--gray);opacity:.85;}
+.dish-modal-bottom{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.9rem;
+  margin-top:.6rem;padding-top:1rem;
+  border-top:1px solid var(--paper-line);
+}
+.dish-modal-price{font-family:var(--font-mono);font-weight:700;font-size:1.3rem;color:var(--red);}
+.dish-modal-controls{display:flex;align-items:center;gap:.9rem;}
+
+/* ==========================================================
    Floating WhatsApp
    ========================================================== */
 .float-whatsapp{
@@ -428,6 +528,80 @@ p{line-height:1.65;margin:0 0 1em;}
   0%,100%{box-shadow:0 10px 26px rgba(37,211,102,.5);}
   50%{box-shadow:0 10px 26px rgba(37,211,102,.85), 0 0 0 8px rgba(37,211,102,.15);}
 }
+
+/* ==========================================================
+   Dish detail modal
+   ========================================================== */
+.dish-modal-overlay{
+  position:fixed;inset:0;background:rgba(16,16,16,.6);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+  z-index:80;
+}
+.dish-modal-overlay.open{opacity:1;pointer-events:auto;}
+.dish-modal{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%, -46%) scale(.97);
+  width:min(480px, calc(100% - 32px));
+  max-height:min(88vh, 720px);
+  overflow-y:auto;
+  background:var(--paper);
+  border-radius:var(--radius);
+  box-shadow:0 30px 60px rgba(0,0,0,.35);
+  z-index:81;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+}
+.dish-modal.open{
+  opacity:1;pointer-events:auto;
+  transform:translate(-50%, -50%) scale(1);
+}
+.dish-modal-close{
+  position:absolute;top:14px;right:14px;z-index:2;
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.9);border:none;
+  font-size:1.6rem;line-height:1;color:var(--ink);
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 10px rgba(16,16,16,.15);
+}
+.dish-modal-photo{
+  position:relative;
+  aspect-ratio:4/3;
+  background-color:var(--paper-line);
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:var(--radius) var(--radius) 0 0;
+}
+.dish-modal-photo .dish-photo-badge{
+  position:absolute;bottom:12px;left:12px;
+  width:38px;height:38px;border-radius:50%;
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;
+  box-shadow:0 4px 10px rgba(16,16,16,.18);
+}
+.dish-modal-body{padding:1.4rem 1.5rem 1.6rem;}
+.dish-modal-price{
+  font-family:var(--font-mono);font-weight:700;
+  color:var(--red);font-size:1.15rem;margin:0 0 .3rem;
+}
+.dish-modal-body h3{
+  font-size:1.4rem;margin:0 0 .4rem;
+}
+.dish-modal-weight{
+  font-family:var(--font-mono);font-size:.78rem;
+  color:var(--gray);margin:0 0 .9rem;
+}
+.dish-modal-desc{
+  font-size:.92rem;color:var(--ink-soft);
+  margin:0 0 1.4rem;line-height:1.6;
+}
+.dish-modal-actions{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+}
+#dishModalAddBtn{padding:.65em 1.4em;font-size:.88rem;}
 
 /* ==========================================================
    Footer
@@ -513,6 +687,10 @@ p{line-height:1.65;margin:0 0 1em;}
   .qty-stepper button{width:22px;height:22px;font-size:.85rem;}
   .add-btn{padding:.4em .8em;font-size:.7rem;}
   .dish-photo-badge{width:28px;height:28px;font-size:.85rem;}
+
+  /* Компактные карточки соусов — на всю ширину, чтобы влезал текст */
+  .dish-card--compact{grid-column:span 2;}
+  .dish-photo--compact{width:76px;}
 }
 @media (max-width: 480px){
   .hero{padding:60px 0 60px;}
