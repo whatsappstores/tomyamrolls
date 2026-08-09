@@ -105,14 +105,6 @@ const MENU = [
     ]
   },
   {
-    cat: "drinks", catLabel: "Напитки", glyph: "🥤",
-    items: [
-      { id: "dr1", name: "Coca-Cola", desc: "", weight: "1 л", price: 140 },
-      { id: "dr2", name: "Fuse Tea ромашка", desc: "", weight: "1 л", price: 140 },
-      { id: "dr3", name: "Fuse Tea персик", desc: "", weight: "1 л", price: 140 }
-    ]
-  },
-  {
     cat: "sets", catLabel: "Сеты", glyph: "🎉",
     items: [
       { id: "se1", name: "Сет «Классика»", desc: "Калифорния, Филадельфия, маки с огурцом, маки с лососем + Coca-Cola", weight: "750 г", price: 1795 },
@@ -123,16 +115,31 @@ const MENU = [
     ]
   },
   {
-    cat: "sauces", catLabel: "Соусы и добавки", glyph: "🧂",
+    cat: "drinks", catLabel: "Напитки", glyph: "🥤",
     items: [
-      { id: "sc1", name: "Соевый соус п/ф", desc: "", weight: "30 г", price: 40, compact: true },
-      { id: "sc2", name: "Ореховый соус", desc: "", weight: "30 г", price: 40, compact: true },
-      { id: "sc5", name: "Спайс соус", desc: "", weight: "30 г", price: 45, compact: true },
-      { id: "sc3", name: "Имбирь маринованный", desc: "Часто уже входит в состав роллов — доп. порция по желанию", weight: "30 г", price: 40, compact: true, optional: true },
-      { id: "sc4", name: "Васаби", desc: "Часто уже входит в состав роллов — доп. порция по желанию", weight: "30 г", price: 30, compact: true, optional: true }
+      { id: "dr1", name: "Coca-Cola", desc: "", weight: "1 л", price: 140 },
+      { id: "dr2", name: "Fuse Tea ромашка", desc: "", weight: "1 л", price: 140 },
+      { id: "dr3", name: "Fuse Tea персик", desc: "", weight: "1 л", price: 140 }
     ]
   }
 ];
+
+/* ==========================================================
+   ДОПОЛНИТЕЛЬНО — соусы и добавки.
+   Показываются отдельной секцией внизу страницы (не в основных
+   вкладках меню), так как часто уже входят в состав роллов и
+   сетов — здесь их можно заказать дополнительно при желании.
+   ========================================================== */
+const EXTRAS = {
+  cat: "extras", catLabel: "Дополнительно", glyph: "🧂",
+  items: [
+    { id: "sc1", name: "Соевый соус п/ф", desc: "", weight: "30 г", price: 40, compact: true },
+    { id: "sc2", name: "Ореховый соус", desc: "", weight: "30 г", price: 40, compact: true },
+    { id: "sc5", name: "Спайс соус", desc: "", weight: "30 г", price: 45, compact: true },
+    { id: "sc3", name: "Имбирь маринованный", desc: "", weight: "30 г", price: 40, compact: true },
+    { id: "sc4", name: "Васаби", desc: "", weight: "30 г", price: 30, compact: true }
+  ]
+};
 
 /* ==========================================================
    Состояние корзины (сохраняется в localStorage)
@@ -153,7 +160,7 @@ function findItem(id) {
     const found = group.items.find(i => i.id === id);
     if (found) return found;
   }
-  return null;
+  return EXTRAS.items.find(i => i.id === id) || null;
 }
 
 function cartCount() {
@@ -200,6 +207,7 @@ function clearCart() {
    ========================================================== */
 const catTabsEl = document.getElementById("catTabs");
 const menuGridEl = document.getElementById("menuGrid");
+const extrasGridEl = document.getElementById("extrasGrid");
 let activeCat = "all";
 
 function buildTabs() {
@@ -221,79 +229,91 @@ function moneyFmt(n) {
   return n.toLocaleString("ru-RU") + " " + CONFIG.currency;
 }
 
-function buildGrid() {
-  const groups = activeCat === "all" ? MENU : MENU.filter(g => g.cat === activeCat);
-  let html = "";
+function renderDishCardHTML(item, glyph) {
+  const qty = cart[item.id] || 0;
 
-  groups.forEach(group => {
-    group.items.forEach(item => {
-      const qty = cart[item.id] || 0;
-
-      if (item.compact) {
-        html += `
-        <article class="dish-card dish-card--compact" data-id="${item.id}">
-          <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${item.id}.jpg">
-            <span class="photo-fallback">images/${item.id}.jpg</span>
-            <span class="dish-photo-badge">${group.glyph}</span>
+  if (item.compact) {
+    return `
+      <article class="dish-card dish-card--compact" data-id="${item.id}">
+        <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${item.id}.jpg">
+          <span class="photo-fallback">images/${item.id}.jpg</span>
+          <span class="dish-photo-badge">${glyph}</span>
+        </div>
+        <div class="dish-body dish-body--compact">
+          ${item.optional ? `<span class="dish-compact-tag">По желанию</span>` : ""}
+          <div class="dish-top">
+            <p class="dish-name">${item.name}</p>
+            <span class="dish-price">${moneyFmt(item.price)}</span>
           </div>
-          <div class="dish-body dish-body--compact">
-            ${item.optional ? `<span class="dish-compact-tag">По желанию</span>` : ""}
-            <div class="dish-top">
-              <p class="dish-name">${item.name}</p>
-              <span class="dish-price">${moneyFmt(item.price)}</span>
+          ${item.desc ? `<p class="dish-desc">${item.desc}</p>` : ""}
+          <span class="dish-weight">${item.weight}</span>
+          <div class="dish-bottom">
+            <div class="qty-stepper">
+              <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
+              <span class="qty-value">${qty}</span>
+              <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
             </div>
-            ${item.desc ? `<p class="dish-desc">${item.desc}</p>` : ""}
-            <span class="dish-weight">${item.weight}</span>
-            <div class="dish-bottom">
-              <div class="qty-stepper">
-                <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
-                <span class="qty-value">${qty}</span>
-                <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
-              </div>
-              <button class="add-btn ${qty > 0 ? "in-cart" : ""}">${qty > 0 ? "Добавлено" : "В корзину"}</button>
-            </div>
+            <button class="add-btn ${qty > 0 ? "in-cart" : ""}">${qty > 0 ? "Добавлено" : "В корзину"}</button>
           </div>
-        </article>`;
-        return;
-      }
+        </div>
+      </article>`;
+  }
 
-      html += `
-        <article class="dish-card" data-id="${item.id}">
-          <div class="dish-photo photo-slot" data-photo="images/${item.id}.jpg">
-            <span class="photo-fallback">images/${item.id}.jpg</span>
-            <span class="dish-photo-badge">${group.glyph}</span>
+  return `
+      <article class="dish-card" data-id="${item.id}">
+        <div class="dish-photo photo-slot" data-photo="images/${item.id}.jpg">
+          <span class="photo-fallback">images/${item.id}.jpg</span>
+          <span class="dish-photo-badge">${glyph}</span>
+        </div>
+        <div class="dish-body">
+          <div class="dish-top">
+            <p class="dish-name">${item.name}</p>
+            <span class="dish-price">${moneyFmt(item.price)}</span>
           </div>
-          <div class="dish-body">
-            <div class="dish-top">
-              <p class="dish-name">${item.name}</p>
-              <span class="dish-price">${moneyFmt(item.price)}</span>
+          <p class="dish-desc">${item.desc}</p>
+          <span class="dish-weight">${item.weight}</span>
+          <div class="dish-bottom">
+            <div class="qty-stepper">
+              <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
+              <span class="qty-value">${qty}</span>
+              <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
             </div>
-            <p class="dish-desc">${item.desc}</p>
-            <span class="dish-weight">${item.weight}</span>
-            <div class="dish-bottom">
-              <div class="qty-stepper">
-                <button class="qty-minus" aria-label="Убрать одну штуку">−</button>
-                <span class="qty-value">${qty}</span>
-                <button class="qty-plus" aria-label="Добавить одну штуку">+</button>
-              </div>
-              <button class="add-btn ${qty > 0 ? "in-cart" : ""}">${qty > 0 ? "Добавлено" : "В корзину"}</button>
-            </div>
+            <button class="add-btn ${qty > 0 ? "in-cart" : ""}">${qty > 0 ? "Добавлено" : "В корзину"}</button>
           </div>
-        </article>`;
-    });
-  });
+        </div>
+      </article>`;
+}
 
-  menuGridEl.innerHTML = html;
-
-  menuGridEl.querySelectorAll(".dish-card").forEach(card => {
+function wireCardEvents(container) {
+  container.querySelectorAll(".dish-card").forEach(card => {
     const id = card.dataset.id;
     card.querySelector(".qty-plus").addEventListener("click", (e) => { e.stopPropagation(); addToCart(id); });
     card.querySelector(".add-btn").addEventListener("click", (e) => { e.stopPropagation(); addToCart(id); });
     card.querySelector(".qty-minus").addEventListener("click", (e) => { e.stopPropagation(); removeFromCart(id); });
     card.addEventListener("click", () => openDishModal(id));
   });
+  loadPhotoSlots(container);
+}
 
-  loadPhotoSlots(menuGridEl);
+function buildGrid() {
+  const groups = activeCat === "all" ? MENU : MENU.filter(g => g.cat === activeCat);
+  let html = "";
+
+  groups.forEach(group => {
+    group.items.forEach(item => {
+      html += renderDishCardHTML(item, group.glyph);
+    });
+  });
+
+  menuGridEl.innerHTML = html;
+  wireCardEvents(menuGridEl);
+}
+
+function buildExtrasGrid() {
+  if (!extrasGridEl) return;
+  const html = EXTRAS.items.map(item => renderDishCardHTML(item, EXTRAS.glyph)).join("");
+  extrasGridEl.innerHTML = html;
+  wireCardEvents(extrasGridEl);
 }
 
 /* ==========================================================
@@ -303,20 +323,24 @@ function buildGrid() {
    ========================================================== */
 function findGroupGlyph(id) {
   const group = MENU.find(g => g.items.some(i => i.id === id));
-  return group ? group.glyph : "";
+  if (group) return group.glyph;
+  return EXTRAS.items.some(i => i.id === id) ? EXTRAS.glyph : "";
 }
 
 function updateMenuQuantities() {
-  menuGridEl.querySelectorAll(".dish-card").forEach(card => {
-    const id = card.dataset.id;
-    const qty = cart[id] || 0;
-    const qtyValueEl = card.querySelector(".qty-value");
-    const addBtnEl = card.querySelector(".add-btn");
-    if (qtyValueEl) qtyValueEl.textContent = qty;
-    if (addBtnEl) {
-      addBtnEl.textContent = qty > 0 ? "Добавлено" : "В корзину";
-      addBtnEl.classList.toggle("in-cart", qty > 0);
-    }
+  [menuGridEl, extrasGridEl].forEach(grid => {
+    if (!grid) return;
+    grid.querySelectorAll(".dish-card").forEach(card => {
+      const id = card.dataset.id;
+      const qty = cart[id] || 0;
+      const qtyValueEl = card.querySelector(".qty-value");
+      const addBtnEl = card.querySelector(".add-btn");
+      if (qtyValueEl) qtyValueEl.textContent = qty;
+      if (addBtnEl) {
+        addBtnEl.textContent = qty > 0 ? "Добавлено" : "В корзину";
+        addBtnEl.classList.toggle("in-cart", qty > 0);
+      }
+    });
   });
   if (currentModalId) updateDishModalQty();
 }
@@ -545,5 +569,6 @@ mainNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => mai
    ========================================================== */
 buildTabs();
 setStaticWhatsappLinks();
+buildExtrasGrid();
 renderAll();
 loadPhotoSlots(document);

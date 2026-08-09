@@ -379,6 +379,18 @@ p{line-height:1.65;margin:0 0 1em;}
 .delivery-note p:last-child{margin:0;}
 
 /* ==========================================================
+   Extras (Дополнительно — соусы и добавки)
+   ========================================================== */
+.extras-section{padding:70px 0 90px;}
+.extras-note{
+  max-width:560px;margin:0 auto;
+  color:var(--gray);font-size:.9rem;
+}
+.menu-grid--extras{
+  grid-template-columns:repeat(auto-fill, minmax(240px,1fr));
+}
+
+/* ==========================================================
    Cart drawer
    ========================================================== */
 .cart-overlay{
