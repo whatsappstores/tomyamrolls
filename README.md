@@ -28,7 +28,7 @@
 ID блюд для фото (соответствуют `MENU` в `script.js`):
 ```
 Закуски:             ap1 ap2
-Роллы:                rl1 rl2 rl3 rl4 rl5 rl6 rl7 rl8 rl9
+Роллы:                rl2 rl3 rl4 rl5 rl6 rl7 rl8 rl9
 Темпура-роллы:        tp1 tp2 tp3 tp4
 Запечённые роллы:     bk1 bk2
 Хот-доги:             hd1 hd2
