@@ -34,7 +34,6 @@ ID блюд для фото (соответствуют `MENU` в `script.js`):
 Хот-доги:             hd1 hd2
 Маки:                 mk1 mk2 mk3 mk4 mk5
 Суши и гункан:        su1 su2 su3 su4
-Поке:                 pk1 pk2
 Супы:                 sp1 sp2
 Салаты:               sl1
 Сеты:                 se1 se2 se3 se5 se6
