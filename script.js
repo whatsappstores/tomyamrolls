@@ -141,7 +141,7 @@ const EXTRAS = {
 const PROMO = {
   cat: "promo", catLabel: "Акция", glyph: "🔥",
   items: [
-    { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с курицей", weight: "655 г + 270 г", price: 995, promo: true }
+    { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с лососем", weight: "655 г + 270 г", price: 995, promo: true }
   ]
 };
 
