@@ -135,6 +135,17 @@ const EXTRAS = {
 };
 
 /* ==========================================================
+   АКЦИЯ — выгодное комбо, показывается на видном месте
+   отдельным блоком сразу под главным экраном.
+   ========================================================== */
+const PROMO = {
+  cat: "promo", catLabel: "Акция", glyph: "🔥",
+  items: [
+    { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с курицей", weight: "655 г + 270 г", price: 995, promo: true }
+  ]
+};
+
+/* ==========================================================
    Состояние корзины (сохраняется в localStorage)
    ========================================================== */
 let cart = {};
@@ -153,7 +164,9 @@ function findItem(id) {
     const found = group.items.find(i => i.id === id);
     if (found) return found;
   }
-  return EXTRAS.items.find(i => i.id === id) || null;
+  const extra = EXTRAS.items.find(i => i.id === id);
+  if (extra) return extra;
+  return PROMO.items.find(i => i.id === id) || null;
 }
 
 function cartCount() {
@@ -201,6 +214,7 @@ function clearCart() {
 const catTabsEl = document.getElementById("catTabs");
 const menuGridEl = document.getElementById("menuGrid");
 const extrasGridEl = document.getElementById("extrasGrid");
+const promoGridEl = document.getElementById("promoGrid");
 let activeCat = "all";
 
 function buildTabs() {
@@ -253,10 +267,11 @@ function renderDishCardHTML(item, glyph) {
   }
 
   return `
-      <article class="dish-card" data-id="${item.id}">
+      <article class="dish-card${item.promo ? " dish-card--promo" : ""}" data-id="${item.id}">
         <div class="dish-photo photo-slot" data-photo="images/${item.id}.jpg">
           <span class="photo-fallback">images/${item.id}.jpg</span>
           <span class="dish-photo-badge">${glyph}</span>
+          ${item.promo ? `<span class="promo-badge">Акция!</span>` : ""}
         </div>
         <div class="dish-body">
           <div class="dish-top">
@@ -309,6 +324,13 @@ function buildExtrasGrid() {
   wireCardEvents(extrasGridEl);
 }
 
+function buildPromoGrid() {
+  if (!promoGridEl) return;
+  const html = PROMO.items.map(item => renderDishCardHTML(item, PROMO.glyph)).join("");
+  promoGridEl.innerHTML = html;
+  wireCardEvents(promoGridEl);
+}
+
 /* ==========================================================
    Точечное обновление количества на карточках блюд —
    без пересборки всей сетки, чтобы страница не "мигала"
@@ -317,11 +339,12 @@ function buildExtrasGrid() {
 function findGroupGlyph(id) {
   const group = MENU.find(g => g.items.some(i => i.id === id));
   if (group) return group.glyph;
-  return EXTRAS.items.some(i => i.id === id) ? EXTRAS.glyph : "";
+  if (EXTRAS.items.some(i => i.id === id)) return EXTRAS.glyph;
+  return PROMO.items.some(i => i.id === id) ? PROMO.glyph : "";
 }
 
 function updateMenuQuantities() {
-  [menuGridEl, extrasGridEl].forEach(grid => {
+  [menuGridEl, extrasGridEl, promoGridEl].forEach(grid => {
     if (!grid) return;
     grid.querySelectorAll(".dish-card").forEach(card => {
       const id = card.dataset.id;
@@ -563,5 +586,6 @@ mainNav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => mai
 buildTabs();
 setStaticWhatsappLinks();
 buildExtrasGrid();
+buildPromoGrid();
 renderAll();
 loadPhotoSlots(document);
