@@ -25,7 +25,7 @@ const MENU = [
     cat: "starters", catLabel: "Закуски", glyph: "🍤",
     items: [
       { id: "ap1", name: "Хрустящие креветки", desc: "Креветки в кляре карри, панировочные сухари, соус унаги и соус спайси", weight: "185 г", price: 450 },
-      { id: "ap2", name: "Картофель фри", desc: "Подаётся с сырным соусом", weight: "150 г + соус 30 г", price: 200 }
+      { id: "ap2", name: "Картофель фри", desc: "Подаётся с сырным соусом", weight: "150 г + соус 30 г", price: 150 }
     ]
   },
   {
@@ -141,7 +141,9 @@ const EXTRAS = {
 const PROMO = {
   cat: "promo", catLabel: "Акция", glyph: "🔥",
   items: [
-    { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с лососем", weight: "655 г + 270 г", price: 995, promo: true }
+    { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с лососем + Coca-Cola", weight: "655 г + 270 г", price: 995, promo: true },
+    { id: "pr1", name: "Хот-дог с курицей", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, курица, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 533.60, oldPrice: 667, promo: true },
+    { id: "pr2", name: "Хот-дог с лососем", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, лосось, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 558.40, oldPrice: 698, promo: true }
   ]
 };
 
@@ -233,7 +235,8 @@ function buildTabs() {
 }
 
 function moneyFmt(n) {
-  return n.toLocaleString("ru-RU") + " " + CONFIG.currency;
+  const opts = Number.isInteger(n) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+  return n.toLocaleString("ru-RU", opts) + " " + CONFIG.currency;
 }
 
 function renderDishCardHTML(item, glyph) {
@@ -276,7 +279,9 @@ function renderDishCardHTML(item, glyph) {
         <div class="dish-body">
           <div class="dish-top">
             <p class="dish-name">${item.name}</p>
-            <span class="dish-price">${moneyFmt(item.price)}</span>
+            ${item.oldPrice
+              ? `<span class="dish-price-group"><span class="dish-price-old">${moneyFmt(item.oldPrice)}</span><span class="dish-price dish-price--sale">${moneyFmt(item.price)}</span></span>`
+              : `<span class="dish-price">${moneyFmt(item.price)}</span>`}
           </div>
           <p class="dish-desc">${item.desc}</p>
           <span class="dish-weight">${item.weight}</span>

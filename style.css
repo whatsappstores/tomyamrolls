@@ -191,7 +191,10 @@ p{line-height:1.65;margin:0 0 1em;}
    ========================================================== */
 .promo-section{padding:0 0 60px;}
 .promo-grid{
-  max-width:380px;margin:0 auto;
+  display:grid;
+  max-width:900px;margin:0 auto;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:1.6rem;
 }
 .dish-card--promo{
   border:2px solid var(--red);
@@ -206,6 +209,16 @@ p{line-height:1.65;margin:0 0 1em;}
   padding:.3em .7em;border-radius:999px;
   box-shadow:0 4px 12px rgba(193,39,45,.4);
 }
+.dish-price-group{
+  display:flex;align-items:baseline;gap:.5rem;
+  flex-wrap:wrap;justify-content:flex-end;
+}
+.dish-price-old{
+  font-family:var(--font-mono);font-size:.82rem;
+  color:var(--gray);text-decoration:line-through;
+  white-space:nowrap;
+}
+.dish-price--sale{color:var(--red);white-space:nowrap;}
 
 /* ==========================================================
    Menu
