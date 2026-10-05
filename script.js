@@ -142,8 +142,8 @@ const PROMO = {
   cat: "promo", catLabel: "Акция", glyph: "🔥",
   items: [
     { id: "cb1", name: "Выгодное комбо", desc: "Суп «Том Ям» с курицей + Хот-дог с лососем + Coca-Cola", weight: "655 г + 270 г", price: 995, promo: true },
-    { id: "pr1", name: "Хот-дог с курицей", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, курица, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 533.60, oldPrice: 667, promo: true },
-    { id: "pr2", name: "Хот-дог с лососем", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, лосось, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 558.40, oldPrice: 698, promo: true }
+    { id: "pr1", name: "Хот-дог с курицей", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, курица, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 533.60, oldPrice: 667, promo: true, photoId: "hd1" },
+    { id: "pr2", name: "Хот-дог с лососем", desc: "Скидка 20% на хот-доги! Творожный сыр, икра тобико, манго свежий, помидор, зелёный лук, лосось, сырный соус, сыр гауда, соус спайс; соус унаги подаётся отдельно, 30 г", weight: "270 г", price: 558.40, oldPrice: 698, promo: true, photoId: "hd2" }
   ]
 };
 
@@ -241,12 +241,13 @@ function moneyFmt(n) {
 
 function renderDishCardHTML(item, glyph) {
   const qty = cart[item.id] || 0;
+  const photoId = item.photoId || item.id;
 
   if (item.compact) {
     return `
       <article class="dish-card dish-card--compact" data-id="${item.id}">
-        <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${item.id}.jpg">
-          <span class="photo-fallback">images/${item.id}.jpg</span>
+        <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${photoId}.jpg">
+          <span class="photo-fallback">images/${photoId}.jpg</span>
           <span class="dish-photo-badge">${glyph}</span>
         </div>
         <div class="dish-body dish-body--compact">
@@ -271,8 +272,8 @@ function renderDishCardHTML(item, glyph) {
 
   return `
       <article class="dish-card${item.promo ? " dish-card--promo" : ""}" data-id="${item.id}">
-        <div class="dish-photo photo-slot" data-photo="images/${item.id}.jpg">
-          <span class="photo-fallback">images/${item.id}.jpg</span>
+        <div class="dish-photo photo-slot" data-photo="images/${photoId}.jpg">
+          <span class="photo-fallback">images/${photoId}.jpg</span>
           <span class="dish-photo-badge">${glyph}</span>
           ${item.promo ? `<span class="promo-badge">Акция!</span>` : ""}
         </div>
@@ -543,11 +544,12 @@ function openDishModal(id) {
   document.getElementById("dishModalPrice").textContent = moneyFmt(item.price);
   document.getElementById("dishModalBadge").textContent = findGroupGlyph(id);
 
-  dishModalPhoto.dataset.photo = `images/${id}.jpg`;
+  const photoId = item.photoId || id;
+  dishModalPhoto.dataset.photo = `images/${photoId}.jpg`;
   dishModalPhoto.classList.remove("has-photo");
   dishModalPhoto.classList.remove("photo-checked");
   dishModalPhoto.style.backgroundImage = "";
-  document.getElementById("dishModalPhotoFallback").textContent = `images/${id}.jpg`;
+  document.getElementById("dishModalPhotoFallback").textContent = `images/${photoId}.jpg`;
   loadPhotoSlots(dishModal);
 
   updateDishModalQty();
