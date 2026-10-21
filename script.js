@@ -254,8 +254,8 @@ function renderDishCardHTML(item, glyph) {
   if (item.compact) {
     return `
       <article class="dish-card dish-card--compact" data-id="${item.id}">
-        <div class="dish-photo dish-photo--compact photo-slot" data-photo="images/${photoId}.jpg">
-          <span class="photo-fallback">images/${photoId}.jpg</span>
+        <div class="dish-photo dish-photo--compact photo-slot" data-photo-base="images/${photoId}">
+          <span class="photo-fallback">images/${photoId}.*</span>
           <span class="dish-photo-badge">${glyph}</span>
         </div>
         <div class="dish-body dish-body--compact">
@@ -280,8 +280,8 @@ function renderDishCardHTML(item, glyph) {
 
   return `
       <article class="dish-card${item.promo ? " dish-card--promo" : ""}" data-id="${item.id}">
-        <div class="dish-photo photo-slot" data-photo="images/${photoId}.jpg">
-          <span class="photo-fallback">images/${photoId}.jpg</span>
+        <div class="dish-photo photo-slot" data-photo-base="images/${photoId}">
+          <span class="photo-fallback">images/${photoId}.*</span>
           <span class="dish-photo-badge">${glyph}</span>
           ${item.promo ? `<span class="promo-badge">Акция!</span>` : ""}
         </div>
@@ -384,17 +384,28 @@ function updateCartUI() {
    Фото: если файл существует — показываем его и прячем подпись,
    если нет — оставляем аккуратную заглушку с путём к файлу.
    ========================================================== */
+// Какое бы расширение файла ни загрузили — любое из них подхватится само.
+const PHOTO_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "avif", "gif", "JPG", "JPEG", "PNG", "WEBP"];
+
+function tryLoadPhoto(base, onFound, extIndex) {
+  extIndex = extIndex || 0;
+  if (extIndex >= PHOTO_EXTENSIONS.length) return; // ни один формат не найден — остаётся заглушка
+  const src = `${base}.${PHOTO_EXTENSIONS[extIndex]}`;
+  const img = new Image();
+  img.onload = () => onFound(src);
+  img.onerror = () => tryLoadPhoto(base, onFound, extIndex + 1);
+  img.src = src;
+}
+
 function loadPhotoSlots(scope) {
   scope.querySelectorAll(".photo-slot:not(.photo-checked)").forEach(el => {
     el.classList.add("photo-checked");
-    const src = el.dataset.photo;
-    if (!src) return;
-    const img = new Image();
-    img.onload = () => {
+    const base = el.dataset.photoBase;
+    if (!base) return;
+    tryLoadPhoto(base, (src) => {
       el.style.backgroundImage = `url('${src}')`;
       el.classList.add("has-photo");
-    };
-    img.src = src;
+    });
   });
 }
 
@@ -553,11 +564,11 @@ function openDishModal(id) {
   document.getElementById("dishModalBadge").textContent = findGroupGlyph(id);
 
   const photoId = item.photoId || id;
-  dishModalPhoto.dataset.photo = `images/${photoId}.jpg`;
+  dishModalPhoto.dataset.photoBase = `images/${photoId}`;
   dishModalPhoto.classList.remove("has-photo");
   dishModalPhoto.classList.remove("photo-checked");
   dishModalPhoto.style.backgroundImage = "";
-  document.getElementById("dishModalPhotoFallback").textContent = `images/${photoId}.jpg`;
+  document.getElementById("dishModalPhotoFallback").textContent = `images/${photoId}.*`;
   loadPhotoSlots(dishModal);
 
   updateDishModalQty();
