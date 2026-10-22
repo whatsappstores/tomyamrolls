@@ -118,9 +118,9 @@ const MENU = [
   {
     cat: "drinks", catLabel: "Напитки", glyph: "🥤",
     items: [
-      { id: "dr1", name: "Coca-Cola", desc: "", weight: "1 л", price: 10 },
-      { id: "dr2", name: "Fuse Tea ромашка", desc: "", weight: "1 л", price: 10 },
-      { id: "dr3", name: "Fuse Tea персик", desc: "", weight: "1 л", price: 10 }
+      { id: "dr1", name: "Coca-Cola", desc: "", weight: "1 л", price: 130 },
+      { id: "dr2", name: "Fuse Tea ромашка", desc: "", weight: "1 л", price: 130 },
+      { id: "dr3", name: "Fuse Tea персик", desc: "", weight: "1 л", price: 130 }
     ]
   }
 ];
