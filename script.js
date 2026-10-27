@@ -115,10 +115,10 @@ const MENU = [
     items: [
       { id: "cm1", name: "Комбо №1", desc: "Хот-дог с лососем (соус унаги), темпура с креветкой, фри, кетчуп + Coca-Cola 1 л", weight: "833 г", price: 1533 },
       { id: "cm2", name: "Комбо №2", desc: "Темпура с креветкой, Филадельфия с огурцом, фри, кетчуп + Coca-Cola 1 л", weight: "813 г", price: 1530 },
-      { id: "cm3", name: "Комбо №3", desc: "Запечённый с курицей, темпура с креветкой, фри, кетчуп + Coca-Cola", weight: "818 г", price: 1432 },
+      { id: "cm3", name: "Комбо №3", desc: "Запечённый с курицей, темпура с креветкой, фри, кетчуп + Coca-Cola 1 л", weight: "818 г", price: 1432 },
       { id: "cm4", name: "Комбо №4", desc: "Филадельфия с огурцом, хрустящие креветки, фри, кетчуп, соус спайси + Coca-Cola 1 л", weight: "700 г", price: 1360 },
       { id: "cm5", name: "Комбо №5", desc: "Филадельфия с огурцом, запечённый с курицей, фри, кетчуп + Coca-Cola 1 л", weight: "805 г", price: 1552 },
-      { id: "cm6", name: "Комбо №6", desc: "Запечённый с лососем, темпура с сурими, темпура с креветкой, фри, кетчуп", weight: "1216 г", price: 2116 }
+      { id: "cm6", name: "Комбо №6", desc: "Запечённый с лососем, темпура с сурими, темпура с креветкой, фри, кетчуп + Coca-Cola 1 л", weight: "1216 г", price: 2116 }
     ]
   },
   {
@@ -298,7 +298,7 @@ function renderDishCardHTML(item, glyph) {
         <div class="dish-photo photo-slot" data-photo-base="images/${photoId}">
           <span class="photo-fallback">images/${photoId}.*</span>
           <span class="dish-photo-badge">${glyph}</span>
-          ${item.promo ? `<span class="promo-badge">Акция!</span>` : ""}
+          ${item.promo ? `<span class="promo-badge">${item.badge || "Акция!"}</span>` : ""}
         </div>
         <div class="dish-body">
           <div class="dish-top">
